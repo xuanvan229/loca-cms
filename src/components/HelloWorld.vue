@@ -80,16 +80,33 @@
         </a>
       </li>
     </ul>
+<h1>{{user}}</h1>
   </div>
 </template>
 
 <script>
+
+import axios from 'axios'
+
 export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      user: [],
+      err: []
     }
+  },
+  created () {
+    axios.get('http://localhost:8000/api/v1/users')
+      .then(response => {
+        console.log(response)
+        this.user = response.data
+      })
+      .catch(e => {
+        console.log(e)
+        this.err.push(e)
+      })
   }
 }
 </script>
